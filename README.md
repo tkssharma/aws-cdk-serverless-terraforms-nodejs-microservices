@@ -392,21 +392,3 @@ cd terraform-for-beginners && terraform init
 
 ---
 
-## 🧠 BONUS: AI SLIDE GENERATION PROMPT
-
-Use this prompt in any slide generator:
-
-> “Create clean, minimal, professional slides for a technical course titled
-> **AWS CDK, Serverless & CloudFormation for Node.js Microservices**.
-> Use architecture diagrams, AWS icons, dark background, minimal text, and developer-friendly visuals.”
-
----
-
-If you want next:
-
-- 📌 **Detailed speaker notes per slide**
-- 📌 **Hands-on lab scripts**
-- 📌 **Udemy course description + SEO keywords**
-- 📌 **Real-world demo project outline**
-
-Just tell me 👍
