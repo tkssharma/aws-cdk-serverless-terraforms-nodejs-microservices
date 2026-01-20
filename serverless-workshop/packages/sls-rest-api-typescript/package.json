@@ -1,0 +1,36 @@
+{
+  "name": "@serverless-workshop/sls-rest-api-typescript",
+  "version": "1.0.0",
+  "description": "Serverless REST API with TypeScript, ESBuild, and AWS Lambda",
+  "main": "src/handler.ts",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "deploy": "serverless deploy",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:prod": "serverless deploy --stage prod",
+    "remove": "serverless remove",
+    "offline": "serverless offline start",
+    "lint": "eslint src --ext .ts",
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@middy/core": "^5.5.0",
+    "@middy/http-error-handler": "^5.5.0",
+    "@middy/http-json-body-parser": "^5.5.0",
+    "@middy/validator": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^22.10.0",
+    "esbuild": "^0.24.0",
+    "serverless": "^4.4.9",
+    "serverless-esbuild": "^1.54.3",
+    "serverless-offline": "^14.4.0",
+    "typescript": "^5.6.3"
+  },
+  "author": "tkssharma",
+  "license": "MIT"
+}

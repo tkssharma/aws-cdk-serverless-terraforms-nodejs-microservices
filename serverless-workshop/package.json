@@ -1,0 +1,33 @@
+{
+  "name": "serverless-workshop",
+  "version": "1.0.0",
+  "description": "Serverless Framework Workshop - AWS Lambda, API Gateway, DynamoDB, S3, SNS, SQS examples",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "lint": "pnpm -r run lint",
+    "deploy:dev": "pnpm -r run deploy:dev",
+    "clean": "pnpm -r exec rm -rf node_modules dist .serverless"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "api-gateway",
+    "dynamodb",
+    "typescript",
+    "nodejs"
+  ],
+  "author": "tkssharma",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  }
+}

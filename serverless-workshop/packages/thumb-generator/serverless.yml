@@ -1,0 +1,31 @@
+service: thumbnail-gen-service
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  profile: serverless-user
+  stage: ${opt:stage,'dev'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "s3:*"
+      Resource: "*"
+  environment:
+    SOURCE_BUCKET: source-thumb-gen
+    SIZES: 200x200
+    DESTINATION_BUCKET: target-thumb-gen
+
+functions:
+  thumbnails:
+    handler: index.handler
+    events:
+      - s3:
+          bucket: source-thumb-gen
+          event: s3:ObjectCreated:*
+resources:
+  Resources:
+    DestImageBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: target-thumb-gen

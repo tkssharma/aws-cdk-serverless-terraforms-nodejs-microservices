@@ -1,0 +1,26 @@
+service: text-analysis-via-sns-post-processing
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  profile: serverless-user
+  stage: dev
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
+
+functions:
+  addNote:
+    handler: addNote.addNote
+    events:
+      - http:
+          path: notes
+          method: post
+          cors: true
+
+  analyzeNote:
+    handler: analyzeNote.analyzeNote
+    events:
+      - sns: analyzeNote

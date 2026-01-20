@@ -1,0 +1,19 @@
+{
+  "name": "@tkssharma/cdk-common",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc index.ts --outDir dist"
+  },
+  "private": true,
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "source-map-support": "^0.5.16"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,0 +1,97 @@
+service: sls-dynamodb-crud-typescript
+
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  memorySize: 256
+  timeout: 30
+  environment:
+    NODE_ENV: ${self:provider.stage}
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - !GetAtt TodosTable.Arn
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude:
+      - "@aws-sdk/*"
+    target: node20
+    platform: node
+    concurrency: 10
+
+functions:
+  list:
+    handler: src/handlers/todos.list
+    events:
+      - http:
+          path: /todos
+          method: get
+          cors: true
+
+  get:
+    handler: src/handlers/todos.get
+    events:
+      - http:
+          path: /todos/{id}
+          method: get
+          cors: true
+
+  create:
+    handler: src/handlers/todos.create
+    events:
+      - http:
+          path: /todos
+          method: post
+          cors: true
+
+  update:
+    handler: src/handlers/todos.update
+    events:
+      - http:
+          path: /todos/{id}
+          method: put
+          cors: true
+
+  delete:
+    handler: src/handlers/todos.remove
+    events:
+      - http:
+          path: /todos/{id}
+          method: delete
+          cors: true
+
+resources:
+  Resources:
+    TodosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH

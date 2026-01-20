@@ -1,0 +1,34 @@
+service: lambda-nodejs
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  profile: serverless-user
+  lambdaHashingVersion: 20201221
+  memorySize: 128
+  timeout: 10
+  role: arn:aws:iam::YourAccountNumber:role/YourIamRole   
+
+functions:
+  functionOne:
+    handler: lambda/function-one.hello
+    description: optional description for your Lambda
+    environment:
+      TABLE_NAME: tableName
+  functionTwo:
+    handler: lambda/function-two.hello
+    description: optional description for your Lambda
+    environment:
+      TABLE_NAME: tableName
+    destinations:
+      onSuccess: otherFunctionInService
+      onFailure: arn:aws:sns:us-east-1:xxxx:some-topic-name  
+    vpc:
+      securityGroupIds:
+        - securityGroupId1
+        - securityGroupId2
+      subnetIds:
+        - subnetId1
+        - subnetId2

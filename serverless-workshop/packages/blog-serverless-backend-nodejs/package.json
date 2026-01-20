@@ -1,0 +1,38 @@
+{
+  "name": "express-serverless",
+  "version": "1.0.0",
+  "description": "Express serverless app",
+  "main": "app.js",
+  "scripts": {
+    "generate-swagger": "./node_modules/tsoa/dist/cli.js swagger",
+    "generate-routes": "./node_modules/tsoa/dist/cli.js routes",
+    "build": "./node_modules/typescript/bin/tsc",
+    "prebuild": "npm run generate-routes && ./node_modules/tslint/bin/tslint -c tslint.json -p tsconfig.json --fix && rm -rf dist/",
+    "prestart": "npm install && npm run build",
+    "start": "isLocal=true NODE_ENV=dev sls offline start",
+    "pre-deploy": "rm -rf node_modules .serverless && npm install --production && npm run build && ./prepare-layer.sh",
+    "deploy-dev": "npm run pre-deploy && NODE_ENV=dev sls deploy",
+    "migrate-db-local": "NODE_ENV=local ./node_modules/sequelize-cli/lib/sequelize db:migrate",
+    "migrate-db-dev": "NODE_ENV=dev ./node_modules/sequelize-cli/lib/sequelize db:migrate"
+  },
+  "author": "beSharp",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@aws-sdk/client-s3": "^3.700.0",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5",
+    "serverless-http": "^3.2.0",
+    "swagger-ui-express": "^5.0.1",
+    "tsoa": "^6.5.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "sequelize-cli": "^6.6.2",
+    "serverless-offline": "^14.4.0"
+  }
+}

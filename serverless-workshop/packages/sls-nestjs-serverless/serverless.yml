@@ -1,0 +1,46 @@
+service: sls-nestjs-serverless
+
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  memorySize: 512
+  timeout: 30
+  environment:
+    NODE_ENV: ${self:provider.stage}
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude:
+      - "@aws-sdk/*"
+    target: node20
+    platform: node
+    concurrency: 10
+    external:
+      - "@nestjs/microservices"
+      - "@nestjs/websockets"
+      - "class-transformer"
+      - "class-validator"
+
+functions:
+  api:
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+          cors: true
+      - http:
+          method: ANY
+          path: "{proxy+}"
+          cors: true
