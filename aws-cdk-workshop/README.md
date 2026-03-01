@@ -1,126 +1,170 @@
-# AwsCdkWorkshop2023
+# AWS CDK Workshop - Serverless Microservices with Node.js
 
-# aws-infra
-
-Nx with NPM workspace that manages AWS infrastructure and resource provisioning code (IaC)
-
-![](./screens//screen-1.png)
-![](./screens//screen-2.png)
-
-## Prerequisites
-
-Install AWS v2 CLI tool on OSX
-
-> In the case you use a different operating system please check the reference https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+Build production-ready serverless microservices on AWS using CDK, Lambda, API Gateway, DynamoDB, Cognito, and S3.
 
 ```
-curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
-sudo installer -pkg AWSCLIV2.pkg -target /
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    SERVERLESS MICROSERVICES ARCHITECTURE                 │
+│                                                                          │
+│     Client ──▶ API Gateway ──▶ Lambda (Express) ──▶ DynamoDB           │
+│                     │                  │                                 │
+│                     │                  └──────────▶ S3                  │
+│                     │                                                    │
+│                Cognito (Auth)                                           │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
-Check the installation succeed
+---
 
-```
-which aws
-/usr/local/bin/aws
+## 📚 Course Structure
 
-aws --version
-aws-cli/2.4.5 Python/3.8.8 Darwin/18.7.0 botocore/2.4.5
-```
+| Section | Lectures | Topics                                            |
+| ------- | -------- | ------------------------------------------------- |
+| **01**  | 1-2      | Course Overview, Prerequisites, Environment Setup |
+| **02**  | 3-4      | CDK Basics, L1/L2/L3 Constructs, Best Practices   |
+| **03**  | 5-6      | Serverless Architecture Design, Mono-repo Setup   |
+| **04**  | 7-8      | API Gateway Deep Dive, Lambda with Node.js        |
+| **05**  | 9-10     | Express/NestJS on Lambda, Microservice Structure  |
+| **06**  | 11-12    | DynamoDB Fundamentals, CRUD Operations            |
+| **07**  | 13-14    | Cognito User Pool, JWT, API Authorizers           |
+| **08**  | 15-16    | S3 Fundamentals, Pre-signed URLs                  |
+| **09**  | 17-18    | IAM Best Practices, Reusable CDK Constructs       |
 
-### Using both aws v1 and v2
+> **Course Content:** See `packages/COURSE-README.md` for detailed lecture content.
 
-Rename version 1 and install the new version
+---
+
+## 🛠️ Prerequisites
+
+### Node.js & npm
 
 ```bash
-which aws
-/usr/local/bin/aws
-
-mv /usr/local/bin/aws /usr/local/bin/aws1
-
-# then follow the steps of previous section
+node -v   # v18+ recommended
+npm -v    # v9+
 ```
 
-## AWS Configure CLI
+### AWS CLI v2
 
-```
-aws configure 
-➜  ~ aws configure
-AWS Access Key ID [****************XXXXX]:
-AWS Secret Access Key [****************+XXXXX]:
-Default region name [us-east-1]:
-Default output format [json]:
-➜  ~
+```bash
+# macOS
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+sudo installer -pkg AWSCLIV2.pkg -target /
 
-```
-
-## Play with Simple Demo app 
-
-```
-cd packages/demo-app
-npm run build
-```
-### Initilize AWS Account 
-
-```javascript
-const app = new cdk.App();
-new DemoAppStack(app, 'DemoAppStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
-
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
-
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
-
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
-
+# Verify
+aws --version
+# aws-cli/2.x.x Python/3.x.x Darwin/...
 ```
 
-```sh
-export CDK_DEFAULT_ACCOUNT=XXXXXXX
+### AWS CDK
+
+```bash
+npm install -g aws-cdk
+cdk --version
+```
+
+---
+
+## ⚙️ AWS Configuration
+
+### Configure Credentials
+
+```bash
+aws configure
+# AWS Access Key ID: ****************XXXX
+# AWS Secret Access Key: ****************XXXX
+# Default region name: us-east-1
+# Default output format: json
+```
+
+### Set Environment Variables
+
+```bash
+export CDK_DEFAULT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
 export CDK_DEFAULT_REGION=us-east-1
+```
+
+---
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Bootstrap CDK (First Time Only)
+
+```bash
+cdk bootstrap aws://$CDK_DEFAULT_ACCOUNT/$CDK_DEFAULT_REGION
+```
+
+### 3. Run Demo Project
+
+```bash
+cd packages/cdk-express-serverless
+
+# Install dependencies
+npm install
+
+# Run locally
+npm run local
+
+# Deploy to AWS
+cdk deploy
+```
+
+---
+
+## 📁 Project Structure
 
 ```
-## AWS-CDK Commands to deploy Stack
+aws-cdk-workshop/
+├── packages/
+│   ├── COURSE-README.md                # Course overview
+│   ├── section-01-introduction/        # Lectures 1-2
+│   ├── section-02-cdk-fundamentals/    # Lectures 3-4
+│   ├── section-03-serverless-architecture/  # Lectures 5-6
+│   ├── section-04-api-gateway-lambda/  # Lectures 7-8
+│   ├── section-05-express-on-lambda/   # Lectures 9-10
+│   ├── section-06-dynamodb/            # Lectures 11-12
+│   ├── section-07-cognito-auth/        # Lectures 13-14
+│   ├── section-08-s3-uploads/          # Lectures 15-16
+│   ├── section-09-advanced-cdk/        # Lectures 17-18
+│   │
+│   ├── cdk-express-serverless/         # Main demo project
+│   ├── lambda-rest-apis/               # Lambda REST API examples
+│   └── demo-app/                       # Basic CDK demo
+```
 
-```sh
-➜  demo-app git:(develop) ✗ npm run cdk-bootstrap       
+---
 
-> @tkssharma/demo-app@0.1.0 cdk-bootstrap
-> cdk bootstrap
+## 🔧 CDK Commands
 
- ⏳  Bootstrapping environment aws://146050578321/us-east-1...
+| Command         | Description                               |
+| --------------- | ----------------------------------------- |
+| `cdk synth`     | Synthesize CloudFormation template        |
+| `cdk diff`      | Compare deployed stack with current state |
+| `cdk deploy`    | Deploy stack to AWS                       |
+| `cdk destroy`   | Remove stack from AWS                     |
+| `cdk bootstrap` | Bootstrap CDK toolkit stack               |
 
+---
 
- ➜  demo-app git:(develop) ✗ npm run cdk-deploy   
+## 🏗️ What You'll Build
 
-> @tkssharma/demo-app@0.1.0 cdk-deploy
-> cdk deploy
+- **REST API** with API Gateway + Lambda
+- **Express/NestJS** running on Lambda
+- **DynamoDB** for user data storage
+- **Cognito** for authentication
+- **S3** for file uploads with pre-signed URLs
+- **Reusable CDK Constructs** for production use
 
+---
 
-✨  Synthesis time: 2.33s
+## 📖 Further Reading
 
-DemoAppStack: building assets...
- ```
-
-
-## Understand this workspace
-
-Run `nx graph` to see a diagram of the dependencies of the projects.
-
-## Remote caching
-
-Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and make CI faster.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+- [AWS CDK Documentation](https://docs.aws.amazon.com/cdk/)
+- [CDK API Reference](https://docs.aws.amazon.com/cdk/api/v2/)
+- [Serverless Express](https://github.com/vendia/serverless-express)
+- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/)
