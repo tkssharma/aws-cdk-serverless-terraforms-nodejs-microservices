@@ -60,26 +60,28 @@ cdk deploy
 
 ## 📚 Course Lectures Overview
 
-| Section | Lecture | Topic                                     |
-| ------- | ------- | ----------------------------------------- |
-| **01**  | 1       | Course Overview & What We'll Build        |
-| **01**  | 2       | Prerequisites & Local Environment Setup   |
-| **02**  | 3       | AWS CDK Basics – How CDK Really Works     |
-| **02**  | 4       | CDK with TypeScript Best Practices        |
-| **03**  | 5       | Designing Serverless Microservices on AWS |
-| **03**  | 6       | Project Setup – Microservices Structure   |
-| **04**  | 7       | API Gateway Deep Dive (CDK)               |
-| **04**  | 8       | AWS Lambda with Node.js & CDK             |
-| **05**  | 9       | Running Express/NestJS on AWS Lambda      |
-| **05**  | 10      | Express/NestJS Microservice Structure     |
-| **06**  | 11      | DynamoDB Fundamentals for Developers      |
-| **06**  | 12      | DynamoDB with CDK + Express               |
-| **07**  | 13      | Cognito User Pool Deep Dive               |
-| **07**  | 14      | Cognito with API Gateway & Lambda         |
-| **08**  | 15      | S3 Fundamentals for Serverless Apps       |
-| **08**  | 16      | S3 + Lambda + API Gateway                 |
-| **09**  | 17      | IAM Best Practices in CDK                 |
-| **09**  | 18      | CDK Reusable Constructs                   |
+| Section | Lecture | Topic                                            |
+| ------- | ------- | ------------------------------------------------ |
+| **00**  | -       | AWS CDK Setup Guide (Prerequisites)              |
+| **001** | -       | Why CDK? (CDK Architecture & Developer Benefits) |
+| **01**  | 1       | Course Overview & What We'll Build               |
+| **01**  | 2       | Prerequisites & Local Environment Setup          |
+| **02**  | 3       | AWS CDK Basics – How CDK Really Works            |
+| **02**  | 4       | CDK with TypeScript Best Practices               |
+| **03**  | 5       | Designing Serverless Microservices on AWS        |
+| **03**  | 6       | Project Setup – Microservices Structure          |
+| **04**  | 7       | API Gateway Deep Dive (CDK)                      |
+| **04**  | 8       | AWS Lambda with Node.js & CDK                    |
+| **05**  | 9       | Running Express/NestJS on AWS Lambda             |
+| **05**  | 10      | Express/NestJS Microservice Structure            |
+| **06**  | 11      | DynamoDB Fundamentals for Developers             |
+| **06**  | 12      | DynamoDB with CDK + Express                      |
+| **07**  | 13      | Cognito User Pool Deep Dive                      |
+| **07**  | 14      | Cognito with API Gateway & Lambda                |
+| **08**  | 15      | S3 Fundamentals for Serverless Apps              |
+| **08**  | 16      | S3 + Lambda + API Gateway                        |
+| **09**  | 17      | IAM Best Practices in CDK                        |
+| **09**  | 18      | CDK Reusable Constructs                          |
 
 ---
 

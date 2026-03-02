@@ -122,6 +122,8 @@ cdk deploy
 aws-cdk-workshop/
 ├── packages/
 │   ├── COURSE-README.md                # Course overview
+│   ├── section-00-setup/               # CDK Setup Guide
+│   ├── section-001-why-cdk/            # Why CDK for Developers
 │   ├── section-01-introduction/        # Lectures 1-2
 │   ├── section-02-cdk-fundamentals/    # Lectures 3-4
 │   ├── section-03-serverless-architecture/  # Lectures 5-6
